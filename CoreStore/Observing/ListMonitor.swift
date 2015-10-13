@@ -923,6 +923,11 @@ public final class ListMonitor<T: NSManagedObject> {
         try! fetchedResultsController.performFetch()
     }
     
+    deinit {
+        
+        self.fetchedResultsControllerDelegate.fetchedResultsController = nil
+    }
+    
     
     // MARK: Private
     

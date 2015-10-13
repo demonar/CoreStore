@@ -197,6 +197,11 @@ public final class ObjectMonitor<T: NSManagedObject> {
         self.lastCommittedAttributes = (self.object?.committedValuesForKeys(nil) as? [String: NSObject]) ?? [:]
     }
     
+    deinit {
+        
+        self.fetchedResultsControllerDelegate.fetchedResultsController = nil
+    }
+    
     
     // MARK: Private
     
