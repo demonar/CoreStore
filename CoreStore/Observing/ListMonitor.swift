@@ -839,7 +839,7 @@ public final class ListMonitor<T: NSManagedObject> {
                 return
             }
             
-            strongSelf.fetchedResultsControllerDelegate.fetchedResultsController = nil
+            strongSelf.fetchedResultsControllerDelegate.enabled = false
             
             let fetchRequest = strongSelf.fetchedResultsController.fetchRequest
             for clause in fetchClauses {
@@ -863,7 +863,7 @@ public final class ListMonitor<T: NSManagedObject> {
                         return
                     }
                     
-                    strongSelf.fetchedResultsControllerDelegate.fetchedResultsController = strongSelf.fetchedResultsController
+                    strongSelf.fetchedResultsControllerDelegate.enabled = true
                     strongSelf.isPendingRefetch = false
                     
                     NSNotificationCenter.defaultCenter().postNotificationName(
@@ -1137,7 +1137,7 @@ extension ListMonitor: FetchedResultsControllerHandler {
     }
     
    internal func controller(controller: NSFetchedResultsController, sectionIndexTitleForSectionName sectionName: String?) -> String? {
-        
+    
         return self.sectionIndexTransformer(sectionName: sectionName)
     }
 }
