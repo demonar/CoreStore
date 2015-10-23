@@ -99,9 +99,9 @@ internal final class FetchedResultsControllerDelegate: NSObject, NSFetchedResult
             return
         }
         
-        guard type.rawValue > 0 else {
+        guard let actualType = NSFetchedResultsChangeType(rawValue: type.rawValue) else {
             
-            // This fix is for a bug where Apple passes 0 for NSFetchedResultsChangeType, but this is not a valid enum case.
+            // This fix is for a bug where iOS passes 0 for NSFetchedResultsChangeType, but this is not a valid enum case.
             // Swift will then always execute the first case of the switch causing strange behaviour.
             // https://forums.developer.apple.com/thread/12184#31850
             return
@@ -112,33 +112,18 @@ internal final class FetchedResultsControllerDelegate: NSObject, NSFetchedResult
         // https://forums.developer.apple.com/message/9998#9998
         // https://forums.developer.apple.com/message/31849#31849
         
-        if #available(iOS 9, *) {
+        switch actualType {
             
-            // Aaand XCode 7.0.1 now also bugs iOS 9 devices.. ughh
-            if case .Move = type where indexPath == newIndexPath {
+        case .Update:
+            guard let section = indexPath?.indexAtPosition(0) else {
                 
-                self.handler?.controller(
-                    controller,
-                    didChangeObject: anObject,
-                    atIndexPath: indexPath,
-                    forChangeType: .Update,
-                    newIndexPath: nil
-                )
+                return
             }
-            else {
-                
-                self.handler?.controller(
-                    controller,
-                    didChangeObject: anObject,
-                    atIndexPath: indexPath,
-                    forChangeType: type,
-                    newIndexPath: newIndexPath
-                )
+            if self.deletedSections.contains(section)
+                || self.insertedSections.contains(section) {
+                    
+                    return
             }
-            return
-        }
-        
-        switch type {
             
         case .Move:
             guard let indexPath = indexPath, let newIndexPath = newIndexPath else {
@@ -149,7 +134,19 @@ internal final class FetchedResultsControllerDelegate: NSObject, NSFetchedResult
                 
                 break
             }
-            if self.deletedSections.contains(indexPath.section) {
+            if self.insertedSections.contains(indexPath.indexAtPosition(0)) {
+                
+                // Observers that handle the .Move change are advised to delete then reinsert the object instead of just moving. This is especially true when indexPath and newIndexPath are equal. For example, calling tableView.moveRowAtIndexPath(_:toIndexPath) when both indexPaths are the same will crash the tableView.
+                self.handler?.controller(
+                    controller,
+                    didChangeObject: anObject,
+                    atIndexPath: indexPath,
+                    forChangeType: .Move,
+                    newIndexPath: newIndexPath
+                )
+                return
+            }
+            if self.deletedSections.contains(indexPath.indexAtPosition(0)) {
                 
                 self.handler?.controller(
                     controller,
@@ -160,17 +157,14 @@ internal final class FetchedResultsControllerDelegate: NSObject, NSFetchedResult
                 )
                 return
             }
-            
-        case .Update:
-            guard let section = indexPath?.section else {
-                
-                return
-            }
-            if self.deletedSections.contains(section)
-                || self.insertedSections.contains(section) {
-                    
-                    return
-            }
+            self.handler?.controller(
+                controller,
+                didChangeObject: anObject,
+                atIndexPath: indexPath,
+                forChangeType: .Update,
+                newIndexPath: nil
+            )
+            return
             
         default:
             break
@@ -180,7 +174,7 @@ internal final class FetchedResultsControllerDelegate: NSObject, NSFetchedResult
             controller,
             didChangeObject: anObject,
             atIndexPath: indexPath,
-            forChangeType: type,
+            forChangeType: actualType,
             newIndexPath: newIndexPath
         )
     }
