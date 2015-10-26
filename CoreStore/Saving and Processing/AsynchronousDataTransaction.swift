@@ -182,7 +182,7 @@ public final class AsynchronousDataTransaction: BaseDataTransaction {
     
     - parameter objects: the `NSManagedObject`s type to be deleted
     */
-    public override func delete<S: SequenceType where S.Generator.Element == NSManagedObject>(objects: S) {
+    public override func delete<S: SequenceType where S.Generator.Element: NSManagedObject>(objects: S) {
         
         CoreStore.assert(
             !self.isCommitted,
