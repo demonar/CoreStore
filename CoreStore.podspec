@@ -12,10 +12,10 @@ Pod::Spec.new do |s|
     s.watchos.deployment_target = "2.0"
 
     s.source_files = "CoreStore", "CoreStore/**/*.{swift}"
-    s.osx.exclude_files = "CoreStore/Observing/*.{swift}", "CoreStore/Internal/FetchedResultsControllerDelegate.swift"
+    s.osx.exclude_files = "CoreStore/Observing/*.{swift}", "CoreStore/Internal/FetchedResultsControllerDelegate.swift", "CoreStore/Internal/NSFetchedResultsController+Convenience.swift"
     s.frameworks = "Foundation", "CoreData"
     s.requires_arc = true
     s.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS' => '-D USE_FRAMEWORKS' }
     
-    s.dependency "GCDKit", "1.1.3"
+    s.dependency "GCDKit", "1.1.4"
 end
