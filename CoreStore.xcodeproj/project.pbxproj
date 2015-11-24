@@ -74,10 +74,8 @@
 		B56007111B3F6BD500A9A8F9 /* Into.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56007101B3F6BD500A9A8F9 /* Into.swift */; };
 		B56007141B3F6C2800A9A8F9 /* SectionBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56007131B3F6C2800A9A8F9 /* SectionBy.swift */; };
 		B56007161B4018AB00A9A8F9 /* MigrationChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56007151B4018AB00A9A8F9 /* MigrationChain.swift */; };
-		B5673E591B84CAC10073DA61 /* NSPersistentStoreCoordinator+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5673E581B84CAC10073DA61 /* NSPersistentStoreCoordinator+Setup.swift */; };
 		B563217A1BD650DE006C9394 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B56321791BD650DE006C9394 /* CoreData.framework */; };
 		B563217C1BD650E3006C9394 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B563217B1BD650E3006C9394 /* Foundation.framework */; };
-		B563217D1BD650FA006C9394 /* GCDKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B56321691BD64F99006C9394 /* GCDKit.framework */; };
 		B563217E1BD65110006C9394 /* CoreStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F03A53519C5C6DA005002A5 /* CoreStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B563217F1BD65216006C9394 /* CoreStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F291E2619C6D3CF007AF63F /* CoreStore.swift */; };
 		B56321801BD65216006C9394 /* NSError+CoreStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1E22B19FA9FBC003B2874 /* NSError+CoreStore.swift */; };
@@ -135,6 +133,7 @@
 		B56321B41BD6521C006C9394 /* NSManagedObjectContext+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E84F331AFF85470064E85B /* NSManagedObjectContext+Transaction.swift */; };
 		B56321B51BD6521C006C9394 /* NSManagedObjectModel+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51BE0691B47FC4B0069F532 /* NSManagedObjectModel+Setup.swift */; };
 		B56321B61BD6521C006C9394 /* WeakObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E84F2D1AFF849C0064E85B /* WeakObject.swift */; };
+		B5673E591B84CAC10073DA61 /* NSPersistentStoreCoordinator+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5673E581B84CAC10073DA61 /* NSPersistentStoreCoordinator+Setup.swift */; };
 		B56964D41B22FFAD0075EE4A /* DataStack+Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56964D31B22FFAD0075EE4A /* DataStack+Migration.swift */; };
 		B56965241B356B820075EE4A /* MigrationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56965231B356B820075EE4A /* MigrationResult.swift */; };
 		B59D5C221B5BA34B00453479 /* NSFileManager+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59D5C211B5BA34B00453479 /* NSFileManager+Setup.swift */; };
@@ -199,41 +198,6 @@
 			remoteGlobalIDString = B52DD1731BE1F8CC00949AFE;
 			remoteInfo = "CoreStore OSX";
 		};
-		B52DD18E1BE1F8DC00949AFE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B5D806C51A34715700A44484 /* GCDKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = B563212A1BD6359A006C9394;
-			remoteInfo = "GCDKit OSX";
-		};
-		B56321641BD64F99006C9394 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B5D806C51A34715700A44484 /* GCDKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B563212B1BD6359A006C9394;
-			remoteInfo = "GCDKit OSX";
-		};
-		B56321661BD64F99006C9394 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B5D806C51A34715700A44484 /* GCDKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B56321401BD63D14006C9394;
-			remoteInfo = "GCDKitTests OSX";
-		};
-		B56321681BD64F99006C9394 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B5D806C51A34715700A44484 /* GCDKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B56321501BD6408F006C9394;
-			remoteInfo = "GCDKit watchOS";
-		};
-		B56321771BD650A3006C9394 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B5D806C51A34715700A44484 /* GCDKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = B563214F1BD6408F006C9394;
-			remoteInfo = "GCDKit watchOS";
-		};
 		B5D372871A39CF4D00F583D9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2F03A52719C5C6DA005002A5 /* Project object */;
@@ -283,10 +247,10 @@
 		B56007101B3F6BD500A9A8F9 /* Into.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Into.swift; sourceTree = "<group>"; };
 		B56007131B3F6C2800A9A8F9 /* SectionBy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionBy.swift; sourceTree = "<group>"; };
 		B56007151B4018AB00A9A8F9 /* MigrationChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MigrationChain.swift; sourceTree = "<group>"; };
-		B5673E581B84CAC10073DA61 /* NSPersistentStoreCoordinator+Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSPersistentStoreCoordinator+Setup.swift"; sourceTree = "<group>"; };
 		B563216F1BD65082006C9394 /* CoreStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B56321791BD650DE006C9394 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		B563217B1BD650E3006C9394 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		B5673E581B84CAC10073DA61 /* NSPersistentStoreCoordinator+Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSPersistentStoreCoordinator+Setup.swift"; sourceTree = "<group>"; };
 		B56964D31B22FFAD0075EE4A /* DataStack+Migration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DataStack+Migration.swift"; sourceTree = "<group>"; };
 		B56965231B356B820075EE4A /* MigrationResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MigrationResult.swift; sourceTree = "<group>"; };
 		B59D5C211B5BA34B00453479 /* NSFileManager+Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSFileManager+Setup.swift"; sourceTree = "<group>"; };
@@ -386,7 +350,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B563217D1BD650FA006C9394 /* GCDKit.framework in Frameworks */,
 				B563217C1BD650E3006C9394 /* Foundation.framework in Frameworks */,
 				B563217A1BD650DE006C9394 /* CoreData.framework in Frameworks */,
 			);
@@ -515,9 +478,6 @@
 			children = (
 				B5D808021A34715700A44484 /* GCDKit.framework */,
 				B5D808041A34715700A44484 /* GCDKitTests iOS.xctest */,
-				B56321651BD64F99006C9394 /* GCDKit.framework */,
-				B56321671BD64F99006C9394 /* GCDKitTests OSX.xctest */,
-				B56321691BD64F99006C9394 /* GCDKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -723,7 +683,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				B52DD18F1BE1F8DC00949AFE /* PBXTargetDependency */,
 			);
 			name = "CoreStore OSX";
 			productName = "CoreStore OSX";
@@ -760,7 +719,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				B56321781BD650A3006C9394 /* PBXTargetDependency */,
 			);
 			name = "CoreStore watchOS";
 			productName = "CoreStore watchOS";
@@ -823,27 +781,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		B56321651BD64F99006C9394 /* GCDKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = GCDKit.framework;
-			remoteRef = B56321641BD64F99006C9394 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B56321671BD64F99006C9394 /* GCDKitTests OSX.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "GCDKitTests OSX.xctest";
-			remoteRef = B56321661BD64F99006C9394 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B56321691BD64F99006C9394 /* GCDKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = GCDKit.framework;
-			remoteRef = B56321681BD64F99006C9394 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		B5D808021A34715700A44484 /* GCDKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -854,7 +791,7 @@
 		B5D808041A34715700A44484 /* GCDKitTests iOS.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "GCDKitTests iOS.xctest";
+			path = GCDKitTests.xctest;
 			remoteRef = B5D808031A34715700A44484 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1111,16 +1048,6 @@
 			target = B52DD1731BE1F8CC00949AFE /* CoreStore OSX */;
 			targetProxy = B52DD17F1BE1F8CD00949AFE /* PBXContainerItemProxy */;
 		};
-		B52DD18F1BE1F8DC00949AFE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "GCDKit OSX";
-			targetProxy = B52DD18E1BE1F8DC00949AFE /* PBXContainerItemProxy */;
-		};
-		B56321781BD650A3006C9394 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "GCDKit watchOS";
-			targetProxy = B56321771BD650A3006C9394 /* PBXContainerItemProxy */;
-		};
 		B5D372881A39CF4D00F583D9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2F03A52F19C5C6DA005002A5 /* CoreStore iOS */;
@@ -1173,7 +1100,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-D USE_FRAMEWORKS";
+				OTHER_SWIFT_FLAGS = "-D USE_FRAMEWORKS -D DEBUG";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1238,7 +1165,6 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "-D DEBUG -D FRAMEWORKS_ENABLED";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.johnestropia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CoreStore;
 				SKIP_INSTALL = YES;
@@ -1261,7 +1187,6 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "-D FRAMEWORKS_ENABLED";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.johnestropia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CoreStore;
 				SKIP_INSTALL = YES;
