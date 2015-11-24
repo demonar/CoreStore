@@ -25,6 +25,9 @@
 
 import Foundation
 import CoreData
+#if USE_FRAMEWORKS
+    import GCDKit
+#endif
 
 
 // MARK: - DataStack

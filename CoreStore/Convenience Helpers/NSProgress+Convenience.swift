@@ -24,8 +24,7 @@
 //
 
 import Foundation
-
-#if FRAMEWORKS_ENABLED
+#if USE_FRAMEWORKS
     import GCDKit
 #endif
 

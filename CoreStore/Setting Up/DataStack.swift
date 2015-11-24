@@ -25,8 +25,7 @@
 
 import Foundation
 import CoreData
-
-#if FRAMEWORKS_ENABLED
+#if USE_FRAMEWORKS
     import GCDKit
 #endif
 
