@@ -223,6 +223,7 @@
 		B5202CF91C04688100DED140 /* NSFetchedResultsController+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSFetchedResultsController+Convenience.swift"; sourceTree = "<group>"; };
 		B52DD1741BE1F8CC00949AFE /* CoreStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B52DD17D1BE1F8CC00949AFE /* CoreStoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreStoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B540EE141C3A513A000C6518 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		B54A6A541BA15F2A007870FD /* FetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
 		B5548CD51BD65AE00077652A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		B5548CD71BD65AE50077652A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
@@ -391,6 +392,7 @@
 				B5E84ED91AFF82360064E85B /* LICENSE */,
 				B5D9C8F61B160ED200E64F0E /* CoreStore.podspec */,
 				B5BDC91A1C202269008147CD /* CartFile */,
+				B540EE141C3A513A000C6518 /* .travis.yml */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
