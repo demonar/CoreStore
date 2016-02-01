@@ -120,50 +120,43 @@ public extension DataStack {
             }
         }
         
-        if let store = store {
+        if store == nil {
             
-            self.updateMetadataForPersistentStore(store)
-            return store
+            if let error = storeError
+                where (resetStoreOnModelMismatch && error.isCoreDataMigrationError) {
+                    
+                    storeError = nil
+                    fileManager.removeSQLiteStoreAtURL(fileURL)
+                    coordinator.performBlockAndWait {
+                        
+                        do {
+                            
+                            store = try coordinator.addPersistentStoreWithType(
+                                NSSQLiteStoreType,
+                                configuration: configuration,
+                                URL: fileURL,
+                                options: options
+                            )
+                        }
+                        catch {
+                            
+                            storeError = error as NSError
+                        }
+                    }
+            }
+            else {
+                
+                let error = storeError ?? NSError(coreStoreErrorCode: .UnknownError)
+                CoreStore.handleError(
+                    error,
+                    "Failed to add SQLite \(typeName(NSPersistentStore)) at \"\(fileURL)\"."
+                )
+                throw error
+            }
         }
         
-        if let error = storeError
-            where (resetStoreOnModelMismatch && error.isCoreDataMigrationError) {
-                
-                fileManager.removeSQLiteStoreAtURL(fileURL)
-                
-                var store: NSPersistentStore?
-                coordinator.performBlockAndWait {
-                    
-                    do {
-                        
-                        store = try coordinator.addPersistentStoreWithType(
-                            NSSQLiteStoreType,
-                            configuration: configuration,
-                            URL: fileURL,
-                            options: options
-                        )
-                    }
-                    catch {
-                        
-                        storeError = error as NSError
-                    }
-                }
-                
-                if let store = store {
-                    
-                    self.updateMetadataForPersistentStore(store)
-                    return store
-                }
-        }
-        
-        let error = storeError ?? NSError(coreStoreErrorCode: .UnknownError)
-        CoreStore.handleError(
-            error,
-            "Failed to add SQLite \(typeName(NSPersistentStore)) at \"\(fileURL)\"."
-        )
-        throw error
-        
-        
-        
+        // TODO: 
+        // 1. observe NSPersistentStoreCoordinatorStoresWillChangeNotification and NSPersistentStoreCoordinatorStoresDidChangeNotification
+        // 2. check userInfo for NSPersistentStoreUbiquitousTransitionTypeKey: NSPersistentStoreUbiquitousTransitionTypeInitialImportCompleted (NSPersistentStoreUbiquitousTransitionType)
     }
 }
