@@ -31,7 +31,7 @@ import CoreData
 
 public extension DataStack {
     
-    public func addICloudStore(ubiquitousContentName: String, ubiquitousContentURLRelativePath: String? = nil, ubiquitousContainerID: String? = nil, ubiquitousPeerToken: String? = nil, configuration: String? = nil, mappingModelBundles: [NSBundle]? = NSBundle.allBundles(), automigrating: Bool, resetStoreOnModelMismatch: Bool = false, completion: (PersistentStoreResult) -> Void) throws -> NSProgress? {
+    public func addICloudStore(ubiquitousContentName: String, ubiquitousContentURLRelativePath: String? = nil, ubiquitousContainerID: String? = nil, ubiquitousPeerToken: String? = nil, configuration: String? = nil, mappingModelBundles: [NSBundle]? = NSBundle.allBundles(), automigrating: Bool) throws -> NSPersistentStore {
         
         CoreStore.assert(
             !ubiquitousContentName.isEmpty,
@@ -70,11 +70,7 @@ public extension DataStack {
                     throw error
             }
             
-            GCDQueue.Main.async {
-                
-                completion(PersistentStoreResult(store))
-            }
-            return nil
+            return store
         }
         
         _ = try? fileManager.createDirectoryAtURL(
@@ -101,62 +97,25 @@ public extension DataStack {
             options[NSPersistentStoreUbiquitousPeerTokenOption] = ubiquitousPeerToken
         }
         
-        var store: NSPersistentStore?
-        var storeError: NSError?
-        coordinator.performBlockAndWait {
+        do {
             
-            do {
-                
-                store = try coordinator.addPersistentStoreWithType(
-                    NSSQLiteStoreType,
-                    configuration: configuration,
-                    URL: fileURL,
-                    options: options
-                )
-            }
-            catch {
-                
-                storeError = error as NSError
-            }
+            let store = try coordinator.addPersistentStoreSynchronously(
+                NSSQLiteStoreType,
+                configuration: configuration,
+                URL: fileURL,
+                options: options
+            )
+            // TODO: check if store changes when iCloud account switches
+            self.updateMetadataForPersistentStore(store)
+            return store
         }
-        
-        if store == nil {
+        catch {
             
-            if let error = storeError
-                where (resetStoreOnModelMismatch && error.isCoreDataMigrationError) {
-                    
-                    storeError = nil
-                    fileManager.removeSQLiteStoreAtURL(fileURL)
-                    coordinator.performBlockAndWait {
-                        
-                        do {
-                            
-                            store = try coordinator.addPersistentStoreWithType(
-                                NSSQLiteStoreType,
-                                configuration: configuration,
-                                URL: fileURL,
-                                options: options
-                            )
-                        }
-                        catch {
-                            
-                            storeError = error as NSError
-                        }
-                    }
-            }
-            else {
-                
-                let error = storeError ?? NSError(coreStoreErrorCode: .UnknownError)
-                CoreStore.handleError(
-                    error,
-                    "Failed to add SQLite \(typeName(NSPersistentStore)) at \"\(fileURL)\"."
-                )
-                throw error
-            }
+            CoreStore.handleError(
+                error as NSError,
+                "Failed to add SQLite \(typeName(NSPersistentStore)) at \"\(fileURL)\"."
+            )
+            throw error
         }
-        
-        // TODO: 
-        // 1. observe NSPersistentStoreCoordinatorStoresWillChangeNotification and NSPersistentStoreCoordinatorStoresDidChangeNotification
-        // 2. check userInfo for NSPersistentStoreUbiquitousTransitionTypeKey: NSPersistentStoreUbiquitousTransitionTypeInitialImportCompleted (NSPersistentStoreUbiquitousTransitionType)
     }
 }

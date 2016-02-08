@@ -1,8 +1,8 @@
 //
-//  WeakObject.swift
+//  PersistentStoreObserver.swift
 //  CoreStore
 //
-//  Copyright © 2015 John Rommel Estropia
+//  Copyright © 2016 John Rommel Estropia
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,18 +24,9 @@
 //
 
 import Foundation
+import CoreData
 
-
-// MARK: - WeakObject
-
-internal final class WeakObject {
+public protocol PersistentStoreObserver: class {
     
-    // MARK: Internal
     
-    internal init(_ object: AnyObject) {
-        
-        self.object = object
-    }
-    
-    internal private(set) weak var object: AnyObject?
 }

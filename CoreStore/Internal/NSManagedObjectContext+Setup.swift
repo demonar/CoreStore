@@ -73,10 +73,10 @@ internal extension NSManagedObjectContext {
                 
                 context?.performBlock { () -> Void in
                     
-                    let updatedObjects = (note.userInfo?[NSUpdatedObjectsKey] as? Set<NSManagedObject>) ?? []
-                    for object in updatedObjects {
+                    let updatedObjectIDs = (note.userInfo?[NSUpdatedObjectsKey] as? Set<NSManagedObjectID>) ?? []
+                    for objectID in updatedObjectIDs {
                         
-                        context?.objectWithID(object.objectID).willAccessValueForKey(nil)
+                        context?.objectWithID(objectID).willAccessValueForKey(nil)
                     }
                     context?.mergeChangesFromContextDidSaveNotification(note)
                 }
