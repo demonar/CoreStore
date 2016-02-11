@@ -1,5 +1,5 @@
 //
-//  UbiquitousStoreObserver.swift
+//  PersistentStoreInterface.swift
 //  CoreStore
 //
 //  Copyright © 2016 John Rommel Estropia
@@ -27,9 +27,25 @@ import Foundation
 import CoreData
 
 
-// MARK: UbiquitousStoreObserver
+// MARK: - PersistentStoreInterface
 
-public protocol UbiquitousStoreObserver {
+public protocol PersistentStoreInterface: class {
     
-    func dataStack(dataStack: DataStack, did
+    typealias ObserverType: PersistentStoreObserver
+    
+    var configuration: String? { get }
+    
+    func addObserver(observer: ObserverType)
+    func removeObserver(observer: ObserverType)
+}
+
+public extension PersistentStoreInterface {
+    
+    func addObserver(observer: ObserverType) {
+        
+    }
+    
+    func removeObserver(observer: ObserverType) {
+        
+    }
 }
