@@ -1,12 +1,12 @@
 # CoreStore
-[![Build Status](https://img.shields.io/travis/JohnEstropia/CoreStore/develop.svg)](https://travis-ci.org/JohnEstropia/CoreStore)
+[![Build Status](https://img.shields.io/travis/JohnEstropia/CoreStore/master.svg)](https://travis-ci.org/JohnEstropia/CoreStore)
 [![Version](https://img.shields.io/cocoapods/v/CoreStore.svg?style=flat)](http://cocoadocs.org/docsets/CoreStore)
 [![Platform](https://img.shields.io/cocoapods/p/CoreStore.svg?style=flat)](http://cocoadocs.org/docsets/CoreStore)
 [![License](https://img.shields.io/cocoapods/l/CoreStore.svg?style=flat)](https://raw.githubusercontent.com/JohnEstropia/CoreStore/master/LICENSE)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Unleashing the real power of Core Data with the elegance and safety of Swift
-* Swift 2.1 (XCode 7.1), iOS 8+/OSX 10.10+ (or try out the [iOS 7 branch](https://github.com/JohnEstropia/CoreStore/tree/ios7_support_alpha))
+* Swift 2.1 (Xcode 7.1), iOS 8+/OSX 10.10+ (or try out the [iOS 7 branch](https://github.com/JohnEstropia/CoreStore/tree/ios7_support_alpha))
 
 [Click here for a wiki version of this README](https://github.com/JohnEstropia/CoreStore/wiki)
 
@@ -15,7 +15,7 @@ Unleashing the real power of Core Data with the elegance and safety of Swift
 ## What CoreStore does better:
 
 - **Heavily supports multiple persistent stores per data stack**, just the way *.xcdatamodeld* files are designed to. CoreStore will also manage one data stack by default, but you can create and manage as many as you need.
-- **Incremental Migrations!** Just tell the data stack the sequence of model versions and CoreStore will automatically use incremental migrations if needed on stores added to that stack.
+- **Progressive Migrations!** Just tell the data stack the sequence of model versions and CoreStore will automatically use progressive migrations if needed on stores added to that stack.
 - Ability to **plug-in your own logging framework**
 - Gets around a limitation with other Core Data wrappers where the entity name should be the same as the `NSManagedObject` subclass name. CoreStore loads entity-to-class mappings from the managed object model file, so you are **free to name entities and their class names independently**.
 - Provides type-safe, easy to configure **observers to replace `NSFetchedResultsController` and KVO**
@@ -36,7 +36,7 @@ Unleashing the real power of Core Data with the elegance and safety of Swift
 - CoreStore Tutorials (All of these have demos in the **CoreStoreDemo** app project!)
     - [Setting up](#setting-up)
     - [Migrations](#migrations)
-        - [Incremental migrations](#incremental-migrations)
+        - [Progressive migrations](#progressive-migrations)
         - [Forecasting migrations](#forecasting-migrations)
     - [Saving and processing transactions](#saving-and-processing-transactions)
         - [Transaction types](#transaction-types)
@@ -70,7 +70,7 @@ Unleashing the real power of Core Data with the elegance and safety of Swift
 
 ## TL;DR (a.k.a. sample codes)
 
-Setting-up with incremental migration support:
+Setting-up with progressive migration support:
 ```swift
 CoreStore.defaultStack = DataStack(
     modelName: "MyStore",
@@ -80,17 +80,12 @@ CoreStore.defaultStack = DataStack(
 
 Adding a store:
 ```swift
-do {
-    try CoreStore.addSQLiteStore(
-        fileName: "MyStore.sqlite",
-        completion: { (result) -> Void in
-            // ...
-        }
-    )
-}
-catch {
-    // ...
-}
+try CoreStore.addSQLiteStore(
+    fileName: "MyStore.sqlite",
+    completion: { (result) -> Void in
+        // ...
+    }
+)
 ```
 
 Starting transactions:
@@ -181,7 +176,7 @@ For most cases, this configuration is usable as it is. But for more hardcore set
 ```swift
 let dataStack = DataStack(
     modelName: "MyModel", // loads from the "MyModel.xcdatamodeld" file
-    migrationChain: ["MyStore", "MyStoreV2", "MyStoreV3"] // model versions for incremental migrations
+    migrationChain: ["MyStore", "MyStoreV2", "MyStoreV3"] // model versions for progressive migrations
 )
 
 do {
@@ -291,7 +286,7 @@ progress?.setProgressHandler { [weak self] (progress) -> Void in
 This closure is executed on the main thread so UIKit calls can be done safely.
 
 
-### Incremental migrations
+### Progressive migrations
 By default, CoreStore uses Core Data's default automatic migration mechanism. In other words, CoreStore will try to migrate the existing persistent store to the *.xcdatamodeld* file's current model version. If no mapping model is found from the store's version to the data model's version, CoreStore gives up and reports an error.
 
 The `DataStack` lets you specify hints on how to break a migration into several sub-migrations using a `MigrationChain`. This is typically passed to the `DataStack` initializer and will be applied to all stores added to the `DataStack` with `addSQLiteStore(...)` and its variants:
@@ -314,7 +309,7 @@ This allows for different migration paths depending on the starting version. The
 - MyAppModelV2-MyAppModelV4
 - MyAppModelV3-MyAppModelV4
 
-Initializing with empty values (either `nil`, `[]`, or `[:]`) instructs the `DataStack` to disable incremental migrations and revert to the default migration behavior (i.e. use the .xcdatamodel's current version as the final version):
+Initializing with empty values (either `nil`, `[]`, or `[:]`) instructs the `DataStack` to disable progressive migrations and revert to the default migration behavior (i.e. use the .xcdatamodel's current version as the final version):
 ```swift
 let dataStack = DataStack(migrationChain: nil)
 ```
@@ -714,7 +709,7 @@ class func uniqueIDFromImportSource(source: ImportSource, inTransaction transact
 ```
 For `ImportableUniqueObject`, the extraction and assignment of values should be implemented from the `updateFromImportSource(...)` method. The `didInsertFromImportSource(...)` by default calls `updateFromImportSource(...)`, but you can separate the implementation for inserts and updates if needed.
 
-You can then call create/update an object by calling a transaction's `importUniqueObject(...)` method:
+You can then create/update an object by calling a transaction's `importUniqueObject(...)` method:
 ```swift
 CoreStore.beginAsynchronous { (transaction) -> Void in
     let json: [String: AnyObject] = // ...
@@ -1169,11 +1164,11 @@ let person2 = self.monitor[1, 2]
 # Installation
 - Requires:
     - iOS 8 SDK and above
-    - Swift 2.0 (XCode 7 beta 6)
+    - Swift 2.1 (Xcode 7.2)
 - Dependencies:
     - [GCDKit](https://github.com/JohnEstropia/GCDKit)
 
-### Install with Cocoapods
+### Install with CocoaPods
 ```
 pod 'CoreStore'
 ```
